@@ -1,0 +1,45 @@
+!!! 5
+html
+
+  head
+    meta(charset='utf-8')
+    title CloudyRun:Console
+    link(rel='stylesheet', href='/assets/reset.css')
+    link(rel='stylesheet', href='/assets/console.css')
+    script
+        g_config = {
+            type: 'console'
+        };
+  body
+    #main
+        h1 CloudyRun
+            sup V 0.2
+        #input
+            .input
+                form#frm
+                    input(id='command', name='command', value='', autocomplete='off')
+                    button(type='submit', style='display:none') Send Message
+            #browser-list
+        #output
+            .task.task-help
+                h3 :help
+                .task-bd
+                    p.js
+                        span :run &lt;url&gt;
+                        b 让客户端浏览器打开一个页面，并在跑完测试后将结果发送回服务端。
+                    p.js
+                        span :clear
+                        b 清空任务列表
+                    p.tips
+                        更多说明详见
+                        a(href='http://wiki.ued.taobao.net/doku.php?id=user:yunqian:test:guide', target='_blank') wiki
+                        ，有问题或建议请联系<b>云谦</b>。
+                        
+    script(src='/assets/Socket.IO/socket.io.min.js')
+    script(src='/assets/jquery-1.5.2.min.js')
+    script(src='/util.js')
+    script(src='/assets/json2.js')
+    script(src='/assets/socket.js')
+    script(src='/assets/mustache.js')
+    script(src='/assets/console.js')
+

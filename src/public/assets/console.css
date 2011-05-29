@@ -1,0 +1,150 @@
+
+body {
+    background: #243f59;
+}
+
+#main {
+    margin: 10px 10px 10px;
+}
+h1 {
+    color: #fff;
+    font: bold 26px/1.2 arial;
+    text-shadow: 3px 3px 3px #333;
+    padding: 8px 0 18px 3px;
+}
+h1 sup {
+    position: absolute;
+    margin-top: -10px;
+    margin-left: 6px;
+    font-size: 12px;
+    text-shadow: 0 0 0;
+    font-weight: normal;
+}
+
+#input {
+    border-radius: 3px;
+    border: 3px solid #1b2f43;
+    width: 608px;
+}
+#input .input {
+    border: 1px solid #122537;
+    border-radius: 3px 3px 0 0;
+    overflow: hidden;
+}
+#command {
+    width: 600px;
+    background: #32577b;
+    color: #fff;
+    font-size: 20px;
+    padding: 3px 3px;
+    border: none;
+    border-radius: 3px 3px 0 0;
+}
+#browser-list {
+    background: #1b2f43;
+    padding: 3px 4px 0;
+    color: #fff;
+    font-size: 12px;
+}
+#browser-list b {
+    color: #70a4d6;
+}
+
+#output {
+    margin-top: 30px;
+}
+.task {
+    margin-bottom: 10px;
+    background: #1b2f43;
+    padding: 3px;
+    border-radius: 5px;
+}
+.task h3 {
+    background: #a18c11;
+    color: #f9f289;
+    margin-bottom: 6px;
+    padding: 0 3px;
+    border-radius: 3px;
+}
+.task h3 a.more {
+    display: none;
+    float: right;
+    color: #fff;
+    font-weight: normal;
+    text-decoration: underline;
+}
+.task h3 a.more:hover {
+    text-decoration: none;
+    color: #d3d3d3;
+}
+.task-bd {
+    overflow: hidden;
+}
+.task p.browser {
+    float: left;
+    width: 80px;
+    height: 40px;
+    border: 2px solid #d3d3d3;
+    overflow: hidden;
+    margin-right: 3px;
+    text-align: center;
+    background: #d3d3d3;
+    border-radius: 3px;
+}
+.task p.browser b {
+    display: block;
+    background: rgba(0, 0, 0, .3);
+    color: #000;
+}
+.task p.browser.loading {
+    background: #b8860b;
+    border-color: #b8860b;
+    color: #fff;
+}
+.task p.browser.passed {
+    background: green;
+    color: #fff;
+    border-color: green;
+}
+.task p.browser.failed {
+    background: red;
+    color: #fff;
+    border-color: red;
+}
+.task-execScript h3 {
+    background: #8b0000;
+    color: #e3a7a7;
+}
+.task-help h3 {
+    background: #a0bc25;
+    color: #fff;
+}
+p.js {
+    height: 22px;
+    line-height: 22px;
+    overflow: hidden;
+    padding-left: 120px;
+    position: relative;
+}
+p.js span {
+    position: absolute;
+    left: 0;
+    top: 4px;
+    line-height: 14px;
+    background: #ccc;
+    font-weight: bold;
+    border-radius: 3px;
+}
+p.js b {
+    font-weight: normal;
+    color: #fff;
+}
+p.tips a {
+    color: #70a4d6;
+}
+p.tips a:hover {
+    color: #fff;
+}
+p.tips {
+    color: #fff;
+}
