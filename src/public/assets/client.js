@@ -97,7 +97,7 @@
     };
 
     window.Client = {
-        
+                
         run: run,
 
         iframe: function(url, data) {
@@ -105,7 +105,7 @@
                 util.log('[error] iframe open failed: taskId not specified!');
                 return;
             }
-            
+                        
             data = util.extend({
                 'server':   'http://'+location.host+'/',
                 'sessionId': socket.base.sessionId,

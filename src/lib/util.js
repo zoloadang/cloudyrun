@@ -1,34 +1,34 @@
 
 var util = {
-	
-	/**
-	 * Log Message
+
+    /**
+     * Log Message
      * @param msg {String}
-	 */
-	log: function(msg) {
+     */
+    log: function(msg) {
         if (typeof console !== 'undefined') {
-		    console.log(msg);
+            console.log(msg);
         }
-	},
-	
-	/**
-	 * ¿©’π∂‘œÛ
-	 */
-	extend: function() {
-		var target = arguments[0];
-		for (var i=1; i<arguments.length; i++) {
+    },
+
+    /**
+     * Êâ©Â±ïÂØπË±°
+     */
+    extend: function() {
+        var target = arguments[0];
+        for (var i=1; i<arguments.length; i++) {
             var o = arguments[i];
             if (o) {
                 for (var k in o) {
                     target[k] = o[k];
                 }
             }
-		}
+        }
         return target;
-	},
+    },
 
     /**
-     * ªÒ»°‰Ø¿¿∆˜–≈œ¢
+     * Ëé∑ÂèñÊµèËßàÂô®‰ø°ÊÅØ
      * @param ua {String} navigator.userAgent
      */
     getBrowserInfo: function(ua) {
@@ -61,7 +61,7 @@ var util = {
     },
 
     /**
-     * ªÒ»°∑øº‰∫≈–≈œ¢
+     * Ëé∑ÂèñÊàøÈó¥Âè∑‰ø°ÊÅØ
      * http://a.com/console/room/foo?a=b  => foo
      * http://a.com/client/room/foo/bar   => foo
      */

@@ -46,7 +46,7 @@ socket.on('message', function(data) {
     if (g_config['type'] === 'console') {
         util.log('[data get] '+data);
     }
-    
+
     try {
         data = JSON.parse(data);
     } catch(e) {
@@ -60,9 +60,9 @@ socket.on('message', function(data) {
 });
 
 var handler = {
-    
+
     /**
-     * ¸üĞÂä¯ÀÀÆ÷ÁĞ±í
+     * æ›´æ–°æµè§ˆå™¨åˆ—è¡¨
      * @param data
      */
     updateBrowserList: function(data) {
@@ -80,7 +80,7 @@ var handler = {
     },
 
     /**
-     * ¸üĞÂ session ĞÅÏ¢
+     * æ›´æ–° session ä¿¡æ¯
      * @param data
      */
     updateSessionInfo: function(data) {
@@ -102,7 +102,7 @@ var handler = {
     },
 
     /**
-     * Ö´ĞĞÈÎÎñ
+     * æ‰§è¡Œä»»åŠ¡
      * @param data
      */
     runTask: function(data) {
@@ -126,7 +126,7 @@ var handler = {
         var parser = this.getParserByName(data.taskType);
         var template = parser['outputTemplate'];
         var html = Mustache.to_html(template, data);
-        
+
         if (jQuery('#'+data.taskId)) {
             jQuery('#'+data.taskId).remove();
         }

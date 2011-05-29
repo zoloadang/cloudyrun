@@ -4,10 +4,10 @@
 
 var util = require('./util');
 var ParserManager  = require('./parser-manager');
-var DEFAULT_ROOM = 'cloudyrun_default_room'; // Ä¬ÈÏ·¿¼äºÅ
+var DEFAULT_ROOM = 'cloudyrun_default_room'; // é»˜è®¤æˆ¿é—´å·
 var sessions = {
-	console: {},
-	client: {}
+    console: {},
+    client: {}
 };
 
 var SessionManager = {
@@ -17,18 +17,18 @@ var SessionManager = {
      * @param s {Session}
      * @param data {Object}
      */
-	add: function(s, data) {
-		if (s.type || !data.type || !sessions[data.type]) {
-			return;
-		}
-		
-		for (var k in data) {
-			s[k] = data[k];
-		}
+    add: function(s, data) {
+        if (s.type || !data.type || !sessions[data.type]) {
+            return;
+        }
+
+        for (var k in data) {
+            s[k] = data[k];
+        }
         if (!s.room) {
             s.room = DEFAULT_ROOM;
         }
-		sessions[data.type][s.sessionId] = s;
+        sessions[data.type][s.sessionId] = s;
 
         this.send(s, {
             'messageType': 'updateSessionInfo',
@@ -38,12 +38,12 @@ var SessionManager = {
         });
         this.updateToConsole();
 
-        // TODO: ·¢ËÍËùÓĞ²å¼şÅäÖÃĞÅÏ¢
-	},
+        // TODO: å‘é€æ‰€æœ‰æ’ä»¶é…ç½®ä¿¡æ¯
+    },
 
     send: function(s, data) {
         if (!s) return;
-        
+
         if (!s.sessionId && typeof s === 'object') {
             for (var k in s) {
                 if (s[k] && s[k].sessionId) {
@@ -78,10 +78,10 @@ var SessionManager = {
      * @param ids  {Array}
      * @param room {String} optional
      */
-	get: function(type, ids, room) {
-		if (!sessions[type]) return;
+    get: function(type, ids, room) {
+        if (!sessions[type]) return;
 
-		var ss = sessions[type];
+        var ss = sessions[type];
         var ret = {};
         if (util.isString(ids)) {
             ids = [ids];
@@ -99,21 +99,21 @@ var SessionManager = {
             }
         }
 
-		return ret;
-	},
-	
-	/**
-	 * Remove Session
-	 */
-	remove: function(s) {
-		if (s && s.type && s.sessionId) {
-			delete sessions[s.type][s.sessionId];
-            this.updateToConsole();
-		}
-	},
+        return ret;
+    },
 
     /**
-     * ¸üĞÂĞÅÏ¢µ½ Console
+     * Remove Session
+     */
+    remove: function(s) {
+        if (s && s.type && s.sessionId) {
+            delete sessions[s.type][s.sessionId];
+            this.updateToConsole();
+        }
+    },
+
+    /**
+     * æ›´æ–°ä¿¡æ¯åˆ° Console
      * @param room
      */
     updateToConsole: function(room) {

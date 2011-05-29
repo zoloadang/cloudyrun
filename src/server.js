@@ -1,12 +1,12 @@
 
 var util = require('./lib/util'),
-	app  = require('./lib/app'),
+    app  = require('./lib/app'),
     TaskManager = require('./lib/task'),
     ParserManager  = require('./lib/parser-manager'),
     SessionManager = require('./lib/session-manager'),
 
-	io = require('socket.io'),
-	socket = io.listen(app);
+    io = require('socket.io'),
+    socket = io.listen(app);
 
 app.get(/^\/(\w+)(\/room\/(\w+))?/, function(req, res, next) {
     var type = req.params[0],
@@ -32,39 +32,39 @@ app.post('/post', function(req, res) {
     var data = req.body;
     data.result = decodeURIComponent(data.result);
     TaskManager.update(data);
-	res.send('');
+    res.send('');
 });
 
 socket.on('connection', function(s) {
-	s.on('message', function(data, self) {
+    s.on('message', function(data, self) {
         util.log('[log] message getted: ' + data);
         try {
-		    data = JSON.parse(data);
+            data = JSON.parse(data);
         } catch(e) {
             util.log('[error] message parsing failed!');
             return;
         }
-		self = this;
+        self = this;
 
-		switch (data.messageType) {
-			case 'connect':
-				SessionManager.add(self, data);
-				break;
-			case 'addTask':
-				TaskManager.add(self, data, function() {
+        switch (data.messageType) {
+            case 'connect':
+                SessionManager.add(self, data);
+                break;
+            case 'addTask':
+                TaskManager.add(self, data, function() {
                     SessionManager.send();
                 });
-				break;
-			case 'updateTask':
+                break;
+            case 'updateTask':
                 data.sessionId = s.sessionId;
-				TaskManager.update(data);
-				break;
-		}
-	});
-	
-	s.on('disconnect', function() {
-		SessionManager.remove(this);
-	});
+                TaskManager.update(data);
+                break;
+        }
+    });
+
+    s.on('disconnect', function() {
+        SessionManager.remove(this);
+    });
 });
 
 

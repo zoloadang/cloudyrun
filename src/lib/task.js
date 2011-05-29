@@ -1,8 +1,8 @@
 
 var mongoose = require('mongoose'),
-	Schema   = mongoose.Schema,
-	db       = mongoose.connect('mongodb://127.0.0.1/cloudyrun');
-	
+    Schema   = mongoose.Schema,
+    db       = mongoose.connect('mongodb://127.0.0.1/cloudyrun');
+
 mongoose.model('Task', new Schema({
     taskId:       String,
     taskType:     String,
@@ -15,37 +15,37 @@ mongoose.model('Task', new Schema({
 
 
 var util = require('./util'),
-	uuid = require('node-uuid'),
-	ParserManager = require('./parser-manager'),
-	SessionManager = require('./session-manager'),
+    uuid = require('node-uuid'),
+    ParserManager = require('./parser-manager'),
+    SessionManager = require('./session-manager'),
     Task  = db.model('Task'),
 
-    queue = [], // ÈÎÎñ¶ÓÁĞ
-    EXECUTING_TASK_MAX = 2; // ×î¶àÍ¬Ê±Ö´ĞĞµÄÈÎÎñÊı
+    queue = [], // ä»»åŠ¡é˜Ÿåˆ—
+    EXECUTING_TASK_MAX = 2; // æœ€å¤šåŒæ—¶æ‰§è¡Œçš„ä»»åŠ¡æ•°
 
 
 var TaskManager = {
-	
-	/**
-	 * Add Task
-	 * @param data {Object}
-	 */
-	add: function(session, data, success) {
+
+    /**
+     * Add Task
+     * @param data {Object}
+     */
+    add: function(session, data, success) {
         if (util.isString(data.client)) {
             data.client = [data.client];
         }
 
-		var t = util.extend(new Task(), {
-			'taskId':   uuid(),
-			// 'taskType': 'execScript',
+        var t = util.extend(new Task(), {
+            'taskId':   uuid(),
+            // 'taskType': 'execScript',
             'command':  data.command,
             'room':     session.room,
             'client':   data.client || [],
-			'console':  [session.sessionId],
-			'date':     new Date()
-		});
-        
-        // ½¨Á¢ clientStatus ÊôĞÔ
+            'console':  [session.sessionId],
+            'date':     new Date()
+        });
+
+        // å»ºç«‹ clientStatus å±æ€§
         var ss = SessionManager.get('client', t.client, t.room);
         var cs = {};
         var dataClient = [];
@@ -57,78 +57,78 @@ var TaskManager = {
         t.client = dataClient;
         util.log('[log] t.clientStatus[0]: ' + t.clientStatus[0]);
 
-		// ±éÀú²å¼ş£¬È·¶¨ÈÎÎñÀàĞÍ£¬²¢ºÍ²å¼ş°ó¶¨
-		var parsers = ParserManager.getParsers();
-		for (var i=0; i<parsers.length; i++) {
-			var parser = parsers[i];
+        // éå†æ’ä»¶ï¼Œç¡®å®šä»»åŠ¡ç±»å‹ï¼Œå¹¶å’Œæ’ä»¶ç»‘å®š
+        var parsers = ParserManager.getParsers();
+        for (var i=0; i<parsers.length; i++) {
+            var parser = parsers[i];
             var match = data.command.match(parser.pattern);
             if (match) {
                 t.taskType = parser.name;
-				t.parser = parser;
+                t.parser = parser;
                 if (match[1]) {
                     t.command = match[1];
                 }
                 break;
             }
-			if (parser.pattern.test(data.command)) {
-				t.taskType = parser.name;
-				t.parser = parser;
-				break;
-			}
-		}
+            if (parser.pattern.test(data.command)) {
+                t.taskType = parser.name;
+                t.parser = parser;
+                break;
+            }
+        }
 
         util.log('----tmp---');
         util.log(t.parser);
 
         util.log('saving');
-		var self = this;
-		t.save(function(err) {
-			if (err) {
-				util.log('[error] task saving failed, error message: ' + err);
-				return;
-			}
+        var self = this;
+        t.save(function(err) {
+            if (err) {
+                util.log('[error] task saving failed, error message: ' + err);
+                return;
+            }
 
             util.log('[success] task saved, command: ' + t.command);
             self.tell(t, 'console', {
                 'messageType': 'addTask'
             });
-			
-			queue.push(t);
-			self.checkQueue();
-			if (success && util.isFunction(success)) {
-				success.call(this);
-			}
-		});
-	},
+
+            queue.push(t);
+            self.checkQueue();
+            if (success && util.isFunction(success)) {
+                success.call(this);
+            }
+        });
+    },
 
     /**
-     * ¼ì²é¶ÓÁĞ£¬¿ÉÖ´ĞĞµÄÁ¢¼´Ö´ĞĞ
+     * æ£€æŸ¥é˜Ÿåˆ—ï¼Œå¯æ‰§è¡Œçš„ç«‹å³æ‰§è¡Œ
      */
-	checkQueue: function() {
-		for (var i=0; i<EXECUTING_TASK_MAX; i++) {
-			if (queue[i] && !queue[i].executing) {
-				this.execute(queue[i]);
-			}
-		}
-	},
+    checkQueue: function() {
+        for (var i=0; i<EXECUTING_TASK_MAX; i++) {
+            if (queue[i] && !queue[i].executing) {
+                this.execute(queue[i]);
+            }
+        }
+    },
 
     /**
-     * Ö´ĞĞÈÎÎñ
+     * æ‰§è¡Œä»»åŠ¡
      * @param t {Task}
      */
-	execute: function(t) {
-		if (t.parser && t.parser.executeTask) {
-			t.parser.executeTask(t);
-			return;
-		}
+    execute: function(t) {
+        if (t.parser && t.parser.executeTask) {
+            t.parser.executeTask(t);
+            return;
+        }
 
         this.tell(t, 'client', {
             'messageType': 'runTask'
         });
-	},
+    },
 
     /**
-     * ¸æËß t µÄ console »ò client Ò»Ğ©Êı¾İ
+     * å‘Šè¯‰ t çš„ console æˆ– client ä¸€äº›æ•°æ®
      * @param t
      * @param type
      * @param data
@@ -161,10 +161,10 @@ var TaskManager = {
     },
 
     /**
-     * ¸üĞÂÈÎÎñ
+     * æ›´æ–°ä»»åŠ¡
      * @param data {Object}
      */
-	update: function(data) {
+    update: function(data) {
         util.log('[action] updating task');
         if (!data.sessionId || !data.taskId || !data.result) {
             return;
@@ -175,7 +175,7 @@ var TaskManager = {
 
         util.log(data.taskId);
         util.log(t);
-        
+
         if (util.isString(t.clientStatus[0][data.sessionId][0])) {
             var obj = {};
             obj[data.sessionId] = [data.result, t.clientStatus[0][data.sessionId][1]];
@@ -197,13 +197,13 @@ var TaskManager = {
     },
 
     /**
-     * ¼ì²éÈÎÎñÊÇ·ñÍê³É
+     * æ£€æŸ¥ä»»åŠ¡æ˜¯å¦å®Œæˆ
      * @param t {Task}
      */
     checkTask: function(t) {
         util.log('[action] checking task: ' + t.taskId);
         util.log(t.clientStatus[0]);
-        
+
         for (var k in t.clientStatus[0]) {
             if (!t.clientStatus[0][k][0]) {
                 return;
@@ -216,27 +216,27 @@ var TaskManager = {
     },
 
     /**
-     * Í¨¹ı taskId »ñÈ¡ÈÎÎñ
+     * é€šè¿‡ taskId è·å–ä»»åŠ¡
      * @param taskId {String}
      */
-	getTaskById: function(taskId) {
+    getTaskById: function(taskId) {
 
         util.log('tmp----');
         util.log(queue.length);
-		for (var i=0; i<queue.length; i++) {
+        for (var i=0; i<queue.length; i++) {
             util.log(queue[i].taskId);
         }
-		for (var i=0; i<queue.length; i++) {
-			var t = queue[i];
-			if (t && t.taskId === taskId) {
-				return t;
-			}
-		}
-		return null;
-	},
+        for (var i=0; i<queue.length; i++) {
+            var t = queue[i];
+            if (t && t.taskId === taskId) {
+                return t;
+            }
+        }
+        return null;
+    },
 
     /**
-     * ´ÓÊı¾İ¿âÀï»ñÈ¡ÈÎÎñÊı¾İ
+     * ä»æ•°æ®åº“é‡Œè·å–ä»»åŠ¡æ•°æ®
      * @param taskId {String}
      * @param cb {Function}
      * for debug

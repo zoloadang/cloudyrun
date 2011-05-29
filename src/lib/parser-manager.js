@@ -16,12 +16,12 @@ util.log('-- parsers end --');
 
 var ParserManager = {
 
-	/**
-	 * Get Plugin By Name
-	 */
-	getParsers: function() {
-		return parsers;
-	}
+    /**
+     * Get Plugin By Name
+     */
+    getParsers: function() {
+        return parsers;
+    }
 
 };
 

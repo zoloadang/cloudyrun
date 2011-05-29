@@ -26,7 +26,7 @@ var CloudyRun = {
         },
 
         /**
-         * post Êı¾İµ½ server
+         * post æ•°æ®åˆ° server
          * @param server {String}
          * @param data {Object}
          */
@@ -51,7 +51,7 @@ var CloudyRun = {
         },
 
         /**
-         * ÅäÖÃÊôĞÔ
+         * é…ç½®å±æ€§
          * @param options {Object}
          */
         configure: function(options) {
@@ -61,7 +61,7 @@ var CloudyRun = {
         },
 
         /**
-         * ·¢ËÍ½á¹ûµ½·şÎñÆ÷
+         * å‘é€ç»“æœåˆ°æœåŠ¡å™¨
          */
         sendResult: function(data) {
             if (util.isString(data)) {
@@ -89,7 +89,7 @@ var CloudyRun = {
     });
 
 
-    // ³õÊ¼»¯ CloudyRun
+    // åˆå§‹åŒ– CloudyRun
     CloudyRun._init();
 
 })();
