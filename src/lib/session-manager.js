@@ -36,7 +36,7 @@ var SessionManager = {
             'room': s.room,
             'parsers': ParserManager.getParsers()
         });
-        this.updateToConsole();
+        this.updateToConsole(s.room);
 
         // TODO: 发送所有插件配置信息
     },
@@ -108,7 +108,7 @@ var SessionManager = {
     remove: function(s) {
         if (s && s.type && s.sessionId) {
             delete sessions[s.type][s.sessionId];
-            this.updateToConsole();
+            this.updateToConsole(s.room);
         }
     },
 

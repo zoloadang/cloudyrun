@@ -69,6 +69,7 @@ var CloudyRun = {
                     'result': data
                 };
             }
+
             if (typeof data.passed !== 'undefined') {
                 data.passed = data.passed ? 1 : 0;
             }

@@ -3,7 +3,7 @@
 
     var sandboxframe = document.createElement('iframe');
     sandboxframe.id = 'sandboxframe';
-    sandboxframe.src = 'empty';
+    sandboxframe.src = '/empty';
     document.body.appendChild(sandboxframe);
     var sandbox = sandboxframe.contentDocument || sandboxframe.contentWindow.document;
 
