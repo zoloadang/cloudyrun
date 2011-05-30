@@ -37,8 +37,6 @@ var SessionManager = {
             'parsers': ParserManager.getParsers()
         });
         this.updateToConsole(s.room);
-
-        // TODO: 发送所有插件配置信息
     },
 
     send: function(s, data) {

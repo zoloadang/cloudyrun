@@ -119,17 +119,36 @@ var handler = {
     },
 
     addTask: function(data) {
-        handler.updateTask.call(this, data);
+        var parser = this.getParserByName(data.taskType);
+        var template = parser['outputTemplate'];
+        var template_all = '' +
+            '<div class="task task-{{taskType}}" id="{{taskId}}">' +
+            '<h3>{{taskType}}: {{command}}</h3>' +
+            '<div class="task-bd">' +
+            template +
+            '</div>' +
+            '</div>';
+        var html = Mustache.to_html(template_all, data);
+        $('#output').prepend(html);
     },
 
     updateTask: function(data) {
+        for (var i=0; i<data['clientStatus'].length; i++) {
+            try {
+                var tmpData = JSON.parse(data['clientStatus'][i]['message']);
+                for (var k in tmpData) {
+                    data['clientStatus'][i]['_'+k] = tmpData[k];
+                }
+            } catch(e) {}
+        }
+
         var parser = this.getParserByName(data.taskType);
         var template = parser['outputTemplate'];
         var html = Mustache.to_html(template, data);
 
-        if (jQuery('#'+data.taskId)) {
-            jQuery('#'+data.taskId).remove();
+        var taskBd = jQuery('#'+data.taskId+' div.task-bd');
+        if (taskBd[0]) {
+            taskBd.html(html);
         }
-        $('#output').prepend(html);
     }
 };

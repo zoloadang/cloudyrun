@@ -11,10 +11,12 @@
 <script src="/util.js"></script>
 <script src="/cloudyrun.js?t=123"></script>
 <script>
+    setTimeout(function() {
     CloudyRun.sendResult({
-        passed: 1,
+        status: 1,
         result: 'hoho'
     });
+    }, 2000);
 </script>
 
 </body>

@@ -14,15 +14,14 @@ var runTest = {
     }).toString(),
 
     outputTemplate: '' +
-            '<div class="task task-{{taskType}}" id="{{taskId}}">' +
-            '<h3>{{taskType}}: {{command}}</h3>' +
-            '<div class="task-bd">' +
             '{{#clientStatus}}' +
-            // '<p class="js"><span>{{browser}}</span><b>{{message}}</b></p>' +
-            '<p class="browser loading" title="{{message}}">{{browser}}<b>{{message}}</b></p>' +
-            '{{/clientStatus}}' +
-            '</div>' +
-            '</div>'
+            '{{#loading}}' +
+            '<p class="browser browser-{{_status}}" title="{{message}}">{{browser}}<b>running</b></p>' +
+            '{{/loading}}' +
+            '{{#loaded}}' +
+            '<p class="browser browser-{{_status}}" title="{{message}}">{{browser}}<b>{{_result}}</b></p>' +
+            '{{/loaded}}' +
+            '{{/clientStatus}}'
 };
 
 module.exports = runTest;

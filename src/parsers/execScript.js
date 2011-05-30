@@ -3,6 +3,9 @@ var execScript = {
 
     index: 9999,
     name: 'execScript',
+
+    // :execScript <command>
+    // <command>
     pattern: /(?::execScript\s)?(.+)/,
 
     runTask: (function(data, Client) {
@@ -21,14 +24,9 @@ var execScript = {
     }).toString(),
 
     outputTemplate: '' +
-            '<div class="task task-{{taskType}}" id="{{taskId}}">' +
-            '<h3>{{taskType}}: {{command}}</h3>' +
-            '<div class="task-bd">' +
             '{{#clientStatus}}' +
             '<p class="js"><span>{{browser}}</span><b>{{message}}</b></p>' +
-            '{{/clientStatus}}' +
-            '</div>' +
-            '</div>'
+            '{{/clientStatus}}'
 };
 
 module.exports = execScript;

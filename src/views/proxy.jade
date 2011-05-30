@@ -6,7 +6,9 @@ html
     title CloudyRun:Proxy
   body
     script
+        setTimeout(function() {
         try {
             var taskId = location.href.split('taskId=')[1].split('&')[0];
             parent.parent.jQuery('#'+taskId).remove();
         } catch(e) {}
+        }, 1000);

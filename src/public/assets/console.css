@@ -96,17 +96,17 @@ h1 sup {
     background: rgba(0, 0, 0, .3);
     color: #000;
 }
-.task p.browser.loading {
+.task p.browser.browser- {
     background: #b8860b;
     border-color: #b8860b;
     color: #fff;
 }
-.task p.browser.passed {
+.task p.browser.browser-1 {
     background: green;
     color: #fff;
     border-color: green;
 }
-.task p.browser.failed {
+.task p.browser.browser-0 {
     background: red;
     color: #fff;
     border-color: red;

@@ -17,8 +17,10 @@ var TaskManager = {
     }
 };
 
+$('#command').focus();
 $('#frm').submit(function() {
     var val = $('#command').val();
     TaskManager.add(val);
+    $('#command').val('');
     return false;
 });

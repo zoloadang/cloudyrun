@@ -62,6 +62,7 @@ var CloudyRun = {
 
         /**
          * 发送结果到服务器
+         * @param data {String|Object}
          */
         sendResult: function(data) {
             if (util.isString(data)) {
@@ -70,8 +71,8 @@ var CloudyRun = {
                 };
             }
 
-            if (typeof data.passed !== 'undefined') {
-                data.passed = data.passed ? 1 : 0;
+            if (typeof data.status !== 'undefined') {
+                data.status = data.status ? 1 : 0;
             }
 
             data = util.extend({}, this._config, {

@@ -21,7 +21,7 @@ var util = require('./util'),
     Task  = db.model('Task'),
 
     queue = [], // 任务队列
-    EXECUTING_TASK_MAX = 2; // 最多同时执行的任务数
+    EXECUTING_TASK_MAX = 1; // 最多同时执行的任务数
 
 
 var TaskManager = {
