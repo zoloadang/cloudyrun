@@ -96,7 +96,7 @@ h1 sup {
     background: rgba(0, 0, 0, .3);
     color: #000;
 }
-.task p.browser.browser- {
+.task p.browser.browser-loading {
     background: #b8860b;
     border-color: #b8860b;
     color: #fff;

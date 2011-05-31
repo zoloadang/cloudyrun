@@ -19,17 +19,11 @@
     var template = '' +
             '{{#clientStatus}}' +
             '{{#if(message==)}}' +
-            '<p class="browser browser-{{_status}}"><span title="{{browser}}">{{browser}}</span><b title="{{message}}">running</b></p>' +
+            '<p class="browser browser-loading"><span title="{{browser}}">{{browser}}</span><b title="{{message}}">running</b></p>' +
             '{{/if(message==)}}' +
-            '{{#if(_status==passed)}}' +
+            '{{#if(message!=)}}' +
             '<p class="browser browser-{{_status}}"><span title="{{browser}}">{{browser}}</span><b title="{{message}}">{{_status}}</b></p>' +
-            '{{/if(_status==passed)}}' +
-            '{{#if(_status==failed)}}' +
-            '<p class="browser browser-{{_status}}"><span title="{{browser}}">{{browser}}</span><b title="{{message}}">{{_status}}</b></p>' +
-            '{{/if(_status==failed)}}' +
-            '{{#if(_status==timeout)}}' +
-            '<p class="browser browser-{{_status}}"><span title="{{browser}}">{{browser}}</span><b title="{{message}}">{{_status}}</b></p>' +
-            '{{/if(_status==timeout)}}' +
+            '{{/if(message!=)}}' +
             '{{/clientStatus}}';
     var views = {
         "messageType":"updateTask",

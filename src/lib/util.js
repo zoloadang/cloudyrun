@@ -117,7 +117,13 @@ util.extend(util, {
         return ret;
     }
     function buildFn(key){
-        key = key.split("==");
+        var equal = key.indexOf('==') > -1;
+        if (equal) {
+            key = key.split("==");
+        } else {
+            key = key.split('!=');
+        }
+        
         var res = function(){
             var ns = key[0].split("."), value = key[1];
             var curData = this;
@@ -129,7 +135,8 @@ util.extend(util, {
                         d = d[cns[j]];
                     }
                     if (cns[cns.length - 1] in d) {
-                        if (d[cns[cns.length - 1]].toString() === value) {
+                        var str = d[cns[cns.length - 1]].toString();
+                        if (equal ? (str === value) : (str !== value)) {
                             return true;
                         }
                         else {
