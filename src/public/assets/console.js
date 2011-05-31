@@ -24,6 +24,11 @@ $('#frm').submit(function() {
     if ($.trim(val) === '') {
         return false;
     }
+    if (!$('#browser-list b')[0]) {
+        alert('[warn] no client connected!');
+        return false;
+    }
+    
     TaskManager.add(val);
     $('#command').val('');
     return false;
