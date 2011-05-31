@@ -2,7 +2,13 @@
 // Socket Connect
 //----------------------------------------------------------------------------
 
-var socket = new io.Socket();
+// More Options: https://github.com/LearnBoost/Socket.IO
+var socket = new io.Socket(location.hostname, {
+            connectTimeout: 5000,
+            reconnect: true,
+            reconnectionDelay: 5,
+            maxReconnectionAttempts: 10000
+        });
 
 socket.base = {
     'type': g_config['type'],
