@@ -7,7 +7,13 @@ var util = {
      */
     log: function(msg) {
         if (typeof console !== 'undefined') {
-            console.log(msg);
+            try {
+                if (process.argv.indexOf('nolog') === -1) {
+                    console.log(msg);
+                }
+            } catch(e) {
+                console.log(msg);
+            }
         }
     },
 
