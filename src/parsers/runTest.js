@@ -22,16 +22,6 @@ var runTest = {
             '<p class="browser browser-{{_status}}"><span title="{{browser}}">{{browser}}</span><b title="{{message}}">{{_status}}</b></p>' +
             '{{/if(message!=)}}' +
             '{{/clientStatus}}'
-            /*
-            '{{#clientStatus}}' +
-            '{{#loading}}' +
-            '<p class="browser browser-{{_status}}"><span title="{{browser}}">{{browser}}</span><b title="{{message}}">running</b></p>' +
-            '{{/loading}}' +
-            '{{#loaded}}' +
-            '<p class="browser browser-{{_status}}"><span title="{{browser}}">{{browser}}</span><b title="{{message}}">{{_status}}</b></p>' +
-            '{{/loaded}}' +
-            '{{/clientStatus}}'
-            */
 };
 
 module.exports = runTest;
