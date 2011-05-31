@@ -113,7 +113,7 @@ var handler = {
 
         var parser = this.getParserByName(data.taskType);
         if (parser && parser.runTask) {
-            var runTask = eval('('+parser.runTask+')');
+            eval('var runTask = ('+parser.runTask+')');
             runTask.call(this, data, Client);
         }
     },

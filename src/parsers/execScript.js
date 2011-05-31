@@ -21,6 +21,7 @@ var execScript = {
             'result': result,
             'taskId': data.taskId
         });
+
     }).toString(),
 
     outputTemplate: '' +
