@@ -47,7 +47,7 @@ socket.on('connection', function(s) {
 
         switch (data.messageType) {
             case 'connect':
-                SessionManager.add(self, data);
+                SessionManager.add(self, data, TaskManager);
                 break;
             case 'addTask':
                 TaskManager.add(self, data, function() {

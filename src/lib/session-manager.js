@@ -17,7 +17,7 @@ var SessionManager = {
      * @param s {Session}
      * @param data {Object}
      */
-    add: function(s, data) {
+    add: function(s, data, tm) {
         if (s.type || !data.type || !sessions[data.type]) {
             return;
         }
@@ -37,6 +37,7 @@ var SessionManager = {
             'parsers': ParserManager.getParsers()
         });
         this.updateToConsole(s.room);
+        tm.updateQueueToConsole(s.room);
     },
 
     send: function(s, data) {
