@@ -1,10 +1,9 @@
 
 var util = require('./lib/util'),
     app  = require('./lib/app'),
-    TaskManager = require('./lib/task'),
+    TaskManager = require('./lib/task-manager'),
     ParserManager  = require('./lib/parser-manager'),
     SessionManager = require('./lib/session-manager'),
-
     io = require('socket.io'),
     socket = io.listen(app);
 
@@ -70,4 +69,4 @@ socket.on('connection', function(s) {
 
 var port = process.env.PORT || 8080;
 app.listen(port);
-util.log('[log] server started at '+port);
+console.log('[log] server started at '+port);

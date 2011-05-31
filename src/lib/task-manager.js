@@ -77,9 +77,6 @@ var TaskManager = {
             }
         }
 
-        util.log('----tmp---');
-        util.log(t.parser);
-
         util.log('saving');
         var self = this;
         t.save(function(err) {
@@ -88,16 +85,17 @@ var TaskManager = {
                 return;
             }
 
-            util.log('[success] task saved, command: ' + t.command);
-            self.tell(t, 'console', {
-                'messageType': 'addTask'
-            });
-
             queue.push(t);
             self.checkQueue();
             if (success && util.isFunction(success)) {
                 success.call(this);
             }
+
+            util.log('[success] task saved, command: ' + t.command);
+            self.tell(t, 'console', {
+                'messageType': 'addTask'
+            });
+            self.updateQueueToConsole(t.room);
         });
     },
 
@@ -112,13 +110,6 @@ var TaskManager = {
                 this.execute(t);
             }
         }
-        /*
-        for (var i=0; i<EXECUTING_TASK_MAX; i++) {
-            if (queue[i] && !queue[i].executing) {
-                this.execute(queue[i]);
-            }
-        }
-        */
     },
 
     /**
@@ -172,6 +163,27 @@ var TaskManager = {
     },
 
     /**
+     * 更新 Queue 到控制台
+     * @param room {String}
+     */
+    updateQueueToConsole: function(room) {
+        var q = [];
+        for (var i=0; i<queue.length; i++) {
+            if (queue[i].taskType === 'runTest') {
+                q.push(queue[i].command);
+            }
+        }
+        
+        var s = SessionManager.get('console', null, room);
+        if (s) {
+            SessionManager.send(s, {
+                'messageType': 'updateQueue',
+                'queue': q
+            });
+        }
+    },
+
+    /**
      * 更新任务
      * @param data {Object}
      */
@@ -205,11 +217,12 @@ var TaskManager = {
                     return;
                 }
                 util.log('[success] task updated: ' + data.taskId);
-                util.log('telling');
+                self.checkTask(t);
+
                 self.tell(t, 'console', {
                     'messageType': 'updateTask'
                 });
-                self.checkTask(t);
+                self.updateQueueToConsole(t.room);
             });
         }
     },

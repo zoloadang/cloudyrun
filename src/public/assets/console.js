@@ -17,9 +17,13 @@ var TaskManager = {
     }
 };
 
+
 $('#command').focus();
 $('#frm').submit(function() {
     var val = $('#command').val();
+    if ($.trim(val) === '') {
+        return false;
+    }
     TaskManager.add(val);
     $('#command').val('');
     return false;

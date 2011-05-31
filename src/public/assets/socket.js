@@ -69,7 +69,7 @@ var handler = {
 
     /**
      * 更新浏览器列表
-     * @param data
+     * @param data {Object}
      */
     updateBrowserList: function(data) {
         var browsers = [];
@@ -87,7 +87,7 @@ var handler = {
 
     /**
      * 更新 session 信息
-     * @param data
+     * @param data {Object}
      */
     updateSessionInfo: function(data) {
         this.base.sessionId = data.sessionId;
@@ -101,15 +101,9 @@ var handler = {
         util.log('[success] sessionInfo updated: ' + JSON.stringify(this.base));
     },
 
-    updateParsers: function(data) {
-        if (data.parsers) {
-            parsers = data.parsers;
-        }
-    },
-
     /**
      * 执行任务
-     * @param data
+     * @param data {Object}
      */
     runTask: function(data) {
         if (!data.command || !data.taskId || !data.taskType) {
@@ -124,6 +118,10 @@ var handler = {
         }
     },
 
+    /**
+     * 添加任务
+     * @param data {Object}
+     */
     addTask: function(data) {
         data['clientStatus'] = data['clientStatus'].sort(function(a,b) {
             return a.browser.toLowerCase() < b.browser.toLowerCase();
@@ -141,6 +139,10 @@ var handler = {
         $('#output').prepend(html);
     },
 
+    /**
+     * 更新任务
+     * @param data {Object}
+     */
     updateTask: function(data) {
         for (var i=0; i<data['clientStatus'].length; i++) {
             try {
@@ -159,5 +161,19 @@ var handler = {
         if (taskBd[0]) {
             taskBd.html(html);
         }
+    },
+
+    updateQueue: function(data) {
+        if (!data.queue) {
+            return;
+        }
+
+        var q = $('#queue');
+        if (!q[0]) {
+            q = $('<div id="queue" style="position:absolute;right:10px;top:10px;"></div>');
+            q.appendTo('body');
+        }
+
+        q.html('<h2>Queue</h2><ol><li>'+data.queue.join('</li><li>')+'</li></ol>');
     }
 };
