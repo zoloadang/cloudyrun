@@ -62,7 +62,8 @@ var util = {
                     break;
                 }
             }
-            return result.join('').replace(/\./g, '').replace('0_', '_');
+            return result.join('').replace(/\./g, '').replace('0_', '_')
+                    .replace('_Win', '');
         }
     },
 
