@@ -12,7 +12,13 @@ socket.base = {
 };
 
 socket.sendData = function(data) {
+    if (util.isString(data)) {
+        data = {
+            'result': data
+        };
+    }
     data = util.extend({}, this.base, data);
+    delete data.parsers;
     try {
         data = JSON.stringify(data);
     } catch(e) {
@@ -119,6 +125,9 @@ var handler = {
     },
 
     addTask: function(data) {
+        data['clientStatus'] = data['clientStatus'].sort(function(a,b) {
+            return a.browser.toLowerCase() < b.browser.toLowerCase();
+        });
         var parser = this.getParserByName(data.taskType);
         var template = parser['outputTemplate'];
         var template_all = '' +
@@ -128,7 +137,7 @@ var handler = {
             template +
             '</div>' +
             '</div>';
-        var html = Mustache.to_html(template_all, data);
+        var html = util.to_html(template_all, data);
         $('#output').prepend(html);
     },
 
@@ -144,7 +153,7 @@ var handler = {
 
         var parser = this.getParserByName(data.taskType);
         var template = parser['outputTemplate'];
-        var html = Mustache.to_html(template, data);
+        var html = util.to_html(template, data);
 
         var taskBd = jQuery('#'+data.taskId+' div.task-bd');
         if (taskBd[0]) {

@@ -100,6 +100,11 @@
                 
         run: run,
 
+        /**
+         * 打开 iframe 并提交
+         * @param url
+         * @param data
+         */
         iframe: function(url, data) {
             if (!data.taskId) {
                 util.log('[error] iframe open failed: taskId not specified!');
@@ -120,6 +125,28 @@
 
             var iframe = $('<iframe src="'+url+'" id="'+data.taskId+'" width="1024" height="300"></iframe>');
             iframe.appendTo('body');
+
+            // 可通过 url 传入 timeout 时间
+            var timeout = 10000;
+            try {
+                timeout = url.split('timeout=')[1].split('&')[0];
+            } catch(e) {}
+
+            // 超时判断
+            setTimeout(function() {
+                socket.sendData({
+                            messageType: 'updateTask',
+                            taskId: data.taskId,
+                            result: JSON.stringify({
+                                        status: 'timeout',
+                                        result: 'timeout'
+                                    })
+                        });
+                if (iframe) {
+                    iframe.remove();
+                    iframe = null;
+                }
+            }, timeout);
         }
     };
 

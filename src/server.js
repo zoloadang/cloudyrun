@@ -32,7 +32,7 @@ app.post('/post', function(req, res) {
     var data = req.body;
     data.result = decodeURIComponent(data.result);
     TaskManager.update(data);
-    res.send('');
+    res.end('');
 });
 
 socket.on('connection', function(s) {

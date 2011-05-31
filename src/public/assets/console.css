@@ -101,12 +101,12 @@ h1 sup {
     border-color: #b8860b;
     color: #fff;
 }
-.task p.browser.browser-1 {
+.task p.browser.browser-passed {
     background: green;
     color: #fff;
     border-color: green;
 }
-.task p.browser.browser-0 {
+.task p.browser.browser-failed {
     background: red;
     color: #fff;
     border-color: red;

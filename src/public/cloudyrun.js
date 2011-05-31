@@ -1,3 +1,6 @@
+/**
+ * @depends jQuery, util.js
+ */
 
 var CloudyRun = {
     version: '0.2'
@@ -21,7 +24,7 @@ var CloudyRun = {
                     browser: decodeURIComponent(url.split('browser=')[1].split('&')[0])
                 });
             } catch(e) {
-                util.log('[error] taskId or server not specified!');
+                // util.log('[error] taskId or server not specified!');
             }
         },
 
@@ -54,7 +57,7 @@ var CloudyRun = {
          * 配置属性
          * @param options {Object}
          */
-        configure: function(options) {
+        config: function(options) {
             for (var k in options) {
                 this._config[k] = options[k];
             }
@@ -71,8 +74,8 @@ var CloudyRun = {
                 };
             }
 
-            if (typeof data.status !== 'undefined') {
-                data.status = data.status ? 1 : 0;
+            if (typeof data.status !== 'undefined' && data.status !== 'failed') {
+                data.status = data.status ? 'passed' : 'failed';
             }
 
             data = util.extend({}, this._config, {
@@ -81,7 +84,7 @@ var CloudyRun = {
             
             if (self === top) {
                 data = 'good, please copy and run!<br> <code>:run '+location.href+'</code>';
-                $('<div style="position:fixed;right:10px;bottom:10px;">'+data+'</div>').appendTo('body');
+                $('<div style="position:fixed;right:10px;bottom:10px;z-index:1000001;">'+data+'</div>').appendTo('body');
             } else {
                 var server = this._config.server;
                 this._post(server + 'post', data);

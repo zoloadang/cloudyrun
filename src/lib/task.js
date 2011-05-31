@@ -105,11 +105,20 @@ var TaskManager = {
      * 检查队列，可执行的立即执行
      */
     checkQueue: function() {
+        for (var i=0; i<queue.length; i++) {
+            var t = queue[i];
+            if (t && t.taskType === 'execScript'
+                    || (i<EXECUTING_TASK_MAX && !t.executing)) {
+                this.execute(t);
+            }
+        }
+        /*
         for (var i=0; i<EXECUTING_TASK_MAX; i++) {
             if (queue[i] && !queue[i].executing) {
                 this.execute(queue[i]);
             }
         }
+        */
     },
 
     /**
@@ -117,6 +126,8 @@ var TaskManager = {
      * @param t {Task}
      */
     execute: function(t) {
+        t.executing = true;
+
         if (t.parser && t.parser.executeTask) {
             t.parser.executeTask(t);
             return;
@@ -176,7 +187,14 @@ var TaskManager = {
         util.log(data.taskId);
         util.log(t);
 
-        if (util.isString(t.clientStatus[0][data.sessionId][0])) {
+        // 发送 timeout 时，t 可能已经被删除
+        if (t && util.isString(t.clientStatus[0][data.sessionId][0])) {
+            // 考虑要接收 timeout 的结果，所以不允许重复更新数据
+            if (t.clientStatus[0][data.sessionId][0] !== '') {
+                util.log('[warn] task updating failed, result existed!');
+                return;
+            }
+            
             var obj = {};
             obj[data.sessionId] = [data.result, t.clientStatus[0][data.sessionId][1]];
 

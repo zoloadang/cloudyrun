@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CloudyRun:Console</title>
+<script>g_config = {
+    type: 'client'
+};
+</script>
+</head>
+<body>
+<div id="main"></div>
+<script src="/assets/Socket.IO/socket.io.min.js"></script>
+<script src="/assets/jquery-1.5.2.min.js"></script>
+<script src="/util.js"></script>
+<script src="/assets/json2.js"></script>
+<script src="/assets/mustache.js"></script>
+<script>
+    var template = '' +
+            '{{#clientStatus}}' +
+            '{{#if(message==)}}' +
+            '<p class="browser browser-{{_status}}"><span title="{{browser}}">{{browser}}</span><b title="{{message}}">running</b></p>' +
+            '{{/if(message==)}}' +
+            '{{#if(_status==passed)}}' +
+            '<p class="browser browser-{{_status}}"><span title="{{browser}}">{{browser}}</span><b title="{{message}}">{{_status}}</b></p>' +
+            '{{/if(_status==passed)}}' +
+            '{{#if(_status==failed)}}' +
+            '<p class="browser browser-{{_status}}"><span title="{{browser}}">{{browser}}</span><b title="{{message}}">{{_status}}</b></p>' +
+            '{{/if(_status==failed)}}' +
+            '{{#if(_status==timeout)}}' +
+            '<p class="browser browser-{{_status}}"><span title="{{browser}}">{{browser}}</span><b title="{{message}}">{{_status}}</b></p>' +
+            '{{/if(_status==timeout)}}' +
+            '{{/clientStatus}}';
+    var views = {
+        "messageType":"updateTask",
+        "taskId":"19060E41-025F-42DA-B58F-640BD2E87D67","taskType":"runTest","command":"http://test.taobao.com:8080/test/runTestWithJasmine.html",
+        "clientStatus":[
+            {
+                "sessionId":"4744719201698899",
+                "message":"",
+                "browser":"Chrome13_Mac",
+                "loading":false,
+                "loaded":true
+            },
+            {
+                "sessionId":"4744719201698899",
+                "message":"{\"status\":\"passed\",\"result\":\"\"}",
+                "_status": "timeout",
+                "_result": "aabbc",
+                "browser":"Chrome13_Mac",
+                "loading":false,
+                "loaded":true
+            },
+            {
+                "sessionId":"4744719201698899",
+                "message":"{\"status\":\"passed\",\"result\":\"\"}",
+                "_status": "passed",
+                "_result": "aabbc",
+                "browser":"Chrome13_Mac",
+                "loading":false,
+                "loaded":true
+            },
+            {
+                "sessionId":"4744719201698899",
+                "message":"{\"status\":\"passed\",\"result\":\"\"}",
+                "_status": "failed",
+                "_result": "aabbc",
+                "browser":"Chrome13_Mac",
+                "loading":false,
+                "loaded":true
+            }
+    ]};
+    
+    var html = (util.to_html(template, views));
+    document.write('<textarea cols="100" rows="12">'+html+'</textarea>');
+</script>
+</body>
+</html>
