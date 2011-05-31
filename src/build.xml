@@ -1,0 +1,31 @@
+<project name="cloudyrun.build" default="build" basedir=".">
+
+    <description>CloudyRun Build File</description>
+
+    <property name="build.dir" value="../build/"/>
+
+    <target name="concat">
+        <concat destfile="../build/cloudyrun.js" encoding="utf-8" outputencoding="utf-8">
+            <path path="./public/cloudyrun.js"/>
+        </concat>
+        <concat destfile="../build/cloudyrun-pkg.js" encoding="utf-8" outputencoding="utf-8">
+            <path path="./public/assets/jquery-1.5.2.min.js"/>
+            <path path="./lib/util.js"/>
+            <path path="./public/cloudyrun.js"/>
+        </concat>
+        <concat destfile="../build/cloudyrun-jasmine-pkg.js" encoding="utf-8" outputencoding="utf-8">
+            <path path="./public/assets/jquery-1.5.2.min.js"/>
+            <path path="./public/jasmine/jasmine.js"/>
+            <path path="./public/jasmine/jasmine-html.js"/>
+            <path path="./public/jasmine/jasmine-json.js"/>
+            <path path="./public/jasmine/event-simulate.js"/>
+            <path path="./lib/util.js"/>
+            <path path="./public/cloudyrun.js"/>
+            <path path="./public/cloudyrun-jasmine.js"/>
+        </concat>
+    </target>
+
+    <target name="build" depends="concat">
+    </target>
+
+</project>
