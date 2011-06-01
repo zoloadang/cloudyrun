@@ -27,7 +27,18 @@
             <path path="./lib/util.js"/>
             <path path="./public/cloudyrun.js"/>
             <path path="./public/cloudyrun-jasmine.js"/>
-            <path path="./public/cloudyrun-jasmine-loader.js"/>
+        </concat>
+        <concat destfile="../build/cloudyrun-taobao-pkg.js" encoding="utf-8" outputencoding="utf-8">
+            <path path="./public/assets/jquery-1.5.2.min.js"/>
+            <path path="./public/assets/json2.js"/>
+            <path path="./public/jasmine/jasmine.js"/>
+            <path path="./public/jasmine/jasmine-html.js"/>
+            <path path="./public/jasmine/jasmine-json.js"/>
+            <path path="./public/jasmine/event-simulate.js"/>
+            <path path="./lib/util.js"/>
+            <path path="./public/cloudyrun.js"/>
+            <path path="./public/cloudyrun-jasmine.js"/>
+            <path path="./public/cloudyrun-jasmine-loader-taobao.js"/>
         </concat>
     </target>
 

@@ -1,7 +1,7 @@
 
 (function() {
 
-    var SPLITER = '__cloudyrun__';
+    var SPLITER = '__cloudyrun__=';
     var spec;
     try {
         spec = location.href.split(SPLITER)[1].split('&')[0];
@@ -12,7 +12,6 @@
     }
 
     spec = _buildPath(spec);
-    alert(spec);
     CloudyRun.runJasmine(spec);
 
 
@@ -52,8 +51,8 @@
         }
 
         if (path.indexOf('~/') === 0) {
-            var path = location.href.split('?')[0];
-            base = path.slice(0, path.lastIndexOf('/')+1);
+            var p = location.href.split('?')[0];
+            base = p.slice(0, p.lastIndexOf('/')+1);
             path = path.replace('~/', '');
         }
 
