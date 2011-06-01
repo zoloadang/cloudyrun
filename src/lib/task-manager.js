@@ -266,6 +266,46 @@ var TaskManager = {
         return null;
     },
 
+    getTaskInfoById: function(taskId, cb) {
+        if (!taskId) return;
+        Task.find({taskId:taskId}, function(err, docs) {
+            if (err) {
+                cb && cb('[err] db finding failed!');
+                return;
+            }
+
+            var d = docs[0];
+            var html = '<link rel="stylesheet" href="/assets/task.css" />';
+            html += '<div class="task-status">';
+            html += '<div class="task-status-general"><span class="a">&gt;</span><span class="b">:'+d['taskType']+' '+d['command']+'</span><span class="c">completed in '+d['time']+' ms.</span></div>';
+            if (d.taskType === 'runTest') {
+                html += '<div class="task-status-line task-status-line-header"><span class="s1">Suite</span><span class="s2">Test</span><span class="s3">Result</span><span class="s4">Notes</span></div>';
+                for (var k in d.clientStatus[0]) {
+                    var data = d.clientStatus[0][k];
+                    var json = JSON.parse(data[0]);
+                    html += '<div class="task-status-line task-status-line-browser">'+data[1]+'</div>';
+                    try {
+                        json.result = JSON.parse(decodeURIComponent(json.result));
+
+                        for (var k in json.result['suites']) {
+                            var suite = json.result['suites'][k];
+                            suite.specs.forEach(function(spec) {
+                                html += '<div class="task-status-line task-status-line-'+spec.status+'"><span class="s1">'+suite.description + '</span><span class="s2">' +
+                                       spec.description + '</span><span class="s3">' + spec.status + '</span><span class="s4">-</span></div>';
+                            });
+                        }
+                    } catch(e) {
+                        html += 'timeout';
+                    }
+                }
+            } else {
+                html += '<span style="color:red;font-size:20px;margin-top:40px;">sorry, only jasmine test result supported now!</span>';
+            }
+            html += '</div>';
+            cb && cb(html);
+        });
+    },
+
     /**
      * 从数据库里获取任务数据
      * @param taskId {String}

@@ -4136,13 +4136,13 @@ util.extend(CloudyRun, {
      */
     if ($('link[href*=jasmine]')[0]) return;
 
-    var lastScript = $('script:last')[0];
-    var path = lastScript.src;
+    var script = $('script[src*=cloudyrun]')[0];
+    var path = script.src;
     var index = path.lastIndexOf('/');
     path = path.slice(0, index);
 
-    $('<link rel="stylesheet" href="'+path+'/jasmine.css" />').appendTo('body');
-    
+    $('<link rel="stylesheet" href="'+path+'/cloudyrun-jasmine-pkg.css" />').appendTo('body');
+
 })();
 (function() {
 

@@ -18,7 +18,14 @@ app.get(/^\/(\w+)(\/room\/(\w+))?/, function(req, res, next) {
     }
 });
 
-// 查看任务的队列和任务状态，调试用
+app.get('/task/:taskId', function(req, res) {
+    var taskId = req.params.taskId;
+    console.log('taskId: ' + taskId);
+    TaskManager.getTaskInfoById(taskId, function(docs) {
+        res.send(docs);
+    });
+});
+
 app.get('/tasks', function(req, res) {
     TaskManager.getTasksFromDB(null, function(docs) {
         res.send(docs);

@@ -58,6 +58,7 @@ h1 sup {
     background: #1b2f43;
     padding: 3px;
     border-radius: 5px;
+    position: relative;
 }
 .task h3 {
     background: #a18c11;
@@ -100,6 +101,18 @@ h1 sup {
     background: #b8860b;
     border-color: #b8860b;
     color: #fff;
+}
+.task p.detail {
+    display: block;
+    clear: both;
+    float: none;
+    position: absolute;
+    right: 6px;
+    top: 3px;
+}
+.task p.detail a {
+    color: #fff;
+    font-size: 12px;
 }
 .task p.browser.browser-passed {
     background: green;

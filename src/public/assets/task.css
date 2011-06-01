@@ -1,0 +1,72 @@
+
+.task-status {
+    font-size: 16px;
+    line-height: 1.5;
+    font-family: Calibri, Verdana, sans-serif;
+    margin:  10px;
+    padding:  10px;
+}
+.task-status-general {
+    color: #333;
+    background: #eee;
+    padding:  3px 8px 1px 1px;
+    border:  1px soid #aaa;
+    border-radius: 4px;
+    font-size: 18px;
+    font-family: consolas;
+    position: relative;
+    margin-bottom: 20px;
+}
+.task-status-general span.c {
+    position: absolute;
+    right: 10px;
+    top: 30px;
+    display: none;
+}
+.task-status-general span.a {
+    color: #66f;
+    font-weight: bold;
+    padding-left: 2px;
+}
+.task-status-line-header {
+    font-weight: bold;
+}
+.task-status-line-browser {
+    font-size: 14px;
+    margin-top: 20px;
+}
+.task-status-line {
+    overflow: hidden;
+    zoom: 1;
+    margin-bottom: 3px;
+}
+.task-status-line-passed span.s3 {
+    background: #8F8;
+}
+.task-status-line-failed span.s3 {
+    background: #F00;
+}
+.task-status-line span {
+    float: left;
+    line-height: 16px;
+    padding: 2px;
+    height: 16px;
+    overflow: hidden;
+}
+.task-status-line span.s1 {
+    width: 145px;
+    padding-right: 10px;
+    text-align: right;
+}
+.task-status-line span.s2 {
+    width: 145px;
+    font-weight: bold;
+}
+.task-status-line span.s3 {
+    width: 52px;
+    font-weight: bold;
+}
+.task-status-line span.s4 {
+    width: 252px;
+    padding-left: 6px;
+}

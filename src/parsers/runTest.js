@@ -21,7 +21,8 @@ var runTest = {
             '{{#if(message!=)}}' +
             '<p class="browser browser-{{_status}}"><span title="{{browser}}">{{browser}}</span><b title="{{message}}">{{_status}}</b></p>' +
             '{{/if(message!=)}}' +
-            '{{/clientStatus}}'
+            '{{/clientStatus}}' +
+            '<p class="detail"><a href="/task/{{taskId}}" target="_blank">View Details &gt;&gt;</a></p>'
 };
 
 module.exports = runTest;
