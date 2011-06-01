@@ -136,7 +136,7 @@ var handler = {
         var template = parser['outputTemplate'];
         var template_all = '' +
             '<div class="task task-{{taskType}}" id="{{taskId}}">' +
-            '<h3>{{taskType}}: {{command}}</h3>' +
+            '<h3>:{{taskType}} {{command}}</h3>' +
             '<div class="task-bd">' +
             template +
             '</div>' +
