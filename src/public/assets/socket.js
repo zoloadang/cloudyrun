@@ -48,8 +48,6 @@ socket.getParserByName = function(name) {
     }
 }
 
-socket.runTaskCache = {};
-
 socket.connect();
 
 socket.on('connect', function() {
@@ -119,12 +117,13 @@ var handler = {
             return;
         }
 
+        this.runTaskCache = this.runTaskCache || {};
+
         if (!this.runTaskCache[data.taskType]) {
             var parser = this.getParserByName(data.taskType);
             if (parser && parser.runTask) {
                 eval('var runTask = ('+parser.runTask+')');
                 this.runTaskCache[data.taskType] = runTask;
-                // runTask.call(this, data, Client);
             }
         }
         this.runTaskCache[data.taskType].call(this, data, Client);
