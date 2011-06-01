@@ -4151,7 +4151,7 @@ util.extend(CloudyRun, {
 
     function _buildPath(path) {
 
-        var base = '/p/test/1.0/spec/', ret = [],
+        var base = '/p/cloudy/1.0/spec/', ret = [],
             get = function(a, b) {
                 // spec completion
                 if (a.lastIndexOf('.js') !== a.length - 3) {
