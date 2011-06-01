@@ -2,8 +2,6 @@
  * @depends jQuery, util.js, cloudyrun.js, jasmine/*.js
  */
 
-
-
 util.extend(CloudyRun, {
 
     _collectJasmine: function(results) {
@@ -79,3 +77,18 @@ util.extend(CloudyRun, {
     }
 
 });
+
+(function() {
+    /**
+     * Load Jasmine.css if not loaded
+     */
+    if ($('link[href*=jasmine]')[0]) return;
+
+    var lastScript = $('script:last')[0];
+    var path = lastScript.src;
+    var index = path.lastIndexOf('/');
+    path = path.slice(0, index);
+
+    $('<link rel="stylesheet" href="'+path+'/jasmine.css" />').appendTo('body');
+    
+})();
