@@ -246,6 +246,10 @@ var TaskManager = {
         this.checkQueue();
     },
 
+    clearQueue: function() {
+        queue = [];
+    },
+
     /**
      * 通过 taskId 获取任务
      * @param taskId {String}
