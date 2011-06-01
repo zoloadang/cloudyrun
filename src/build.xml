@@ -5,6 +5,9 @@
     <property name="build.dir" value="../build/"/>
 
     <target name="concat">
+        <concat destfile="../build/cloudyrun-jasmine-pkg.css" encoding="utf-8" outputencoding="utf-8">
+            <path path="./public/jasmine/jasmine.css"/>
+        </concat>
         <concat destfile="../build/cloudyrun.js" encoding="utf-8" outputencoding="utf-8">
             <path path="./public/cloudyrun.js"/>
         </concat>
@@ -24,6 +27,7 @@
             <path path="./lib/util.js"/>
             <path path="./public/cloudyrun.js"/>
             <path path="./public/cloudyrun-jasmine.js"/>
+            <path path="./public/cloudyrun-jasmine-loader.js"/>
         </concat>
     </target>
 

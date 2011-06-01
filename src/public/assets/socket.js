@@ -150,6 +150,9 @@ var handler = {
      * @param data {Object}
      */
     updateTask: function(data) {
+        data['clientStatus'] = data['clientStatus'].sort(function(a,b) {
+            return a.browser.toLowerCase() < b.browser.toLowerCase();
+        });
         for (var i=0; i<data['clientStatus'].length; i++) {
             try {
                 var tmpData = JSON.parse(data['clientStatus'][i]['message']);
