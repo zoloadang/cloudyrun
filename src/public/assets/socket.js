@@ -4,7 +4,7 @@
 
 // More Options: https://github.com/LearnBoost/Socket.IO
 var socket = new io.Socket(location.hostname, {
-            connectTimeout: 5000,
+            connectTimeout: 10000,
             reconnect: true,
             reconnectionDelay: 5,
             maxReconnectionAttempts: 10000
