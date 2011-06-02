@@ -286,9 +286,9 @@ var TaskManager = {
                 html += '<div class="task-status-line task-status-line-header"><span class="s1">Suite</span><span class="s2">Test</span><span class="s3">Result</span><span class="s4">Notes</span></div>';
                 for (var k in d.clientStatus[0]) {
                     var data = d.clientStatus[0][k];
-                    var json = JSON.parse(data[0]);
                     html += '<div class="task-status-line task-status-line-browser">'+data[1]+'</div>';
                     try {
+                        var json = JSON.parse(data[0]);
                         json.result = JSON.parse(decodeURIComponent(json.result));
 
                         for (var k in json.result['suites']) {
