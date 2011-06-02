@@ -9,6 +9,7 @@ var CloudyRun = {
 (function() {
 
     window.CloudyRun = {};
+    var $ = jQuery;
 
     util.extend(CloudyRun, {
 

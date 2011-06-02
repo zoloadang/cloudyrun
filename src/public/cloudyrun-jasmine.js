@@ -10,8 +10,8 @@ util.extend(CloudyRun, {
 
         // for automan
         /*
-        $('<textarea id="__data__" style="display:none;">'+data+'</textarea>').appendTo('body');
-        $('<input type="hidden" id="__test__" value="'+val+'" />').appendTo('body');
+        jQuery('<textarea id="__data__" style="display:none;">'+data+'</textarea>').appendTo('body');
+        jQuery('<input type="hidden" id="__test__" value="'+val+'" />').appendTo('body');
         */
 
         // for node server
@@ -62,7 +62,7 @@ util.extend(CloudyRun, {
             (function() {
                 var func = arguments.callee;
                 if (files[i]) {
-                    $.getScript(files[i], function() {
+                    jQuery.getScript(files[i], function() {
                         i++;
                         func();
                     });
@@ -82,6 +82,7 @@ util.extend(CloudyRun, {
     /**
      * Load Jasmine.css if not loaded
      */
+    var $ = jQuery;
     if ($('link[href*=jasmine]')[0]) return;
 
     var script = $('script[src*=cloudyrun]')[0];
