@@ -114,9 +114,9 @@ var TaskManager = {
                 var s = SessionManager.get('client', k, t.room);
                 if (!s) {
                     delete t.clientStatus[0][k];
-                    this.checkTask(t);
                 }
             }
+            this.checkTask(t);
             if (t && t.taskType === 'execScript'
                     || (i<EXECUTING_TASK_MAX && !t.executing)) {
                 this.execute(t);
