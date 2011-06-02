@@ -356,12 +356,16 @@ var TaskManager = {
         });
     },
 
+    /**
+     * 获取所有的命令列表
+     * @param cb {Function}
+     */
     getCommandsFromDB: function(cb) {
         Task.find(null, [], {sort:{date:-1},limit:300}, function(err, docs) {
             if (err || !docs) return;
             var html = '';
             docs.forEach(function(a) {
-                html += a.command + ',<span style="display:none;">' + a.taskId + '</span><br>';
+                html += ':' + a.taskType + ' ' + a.command + ' <span style="display:none;">' + a.taskId + '</span><br>';
             });
             cb && cb(html);
         });
