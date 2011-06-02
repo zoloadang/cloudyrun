@@ -81,6 +81,7 @@ socket.on('connection', function(s) {
 
     s.on('disconnect', function() {
         SessionManager.remove(this);
+        TaskManager.removeQueue(this.sessionId);
     });
 });
 

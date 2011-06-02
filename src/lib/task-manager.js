@@ -67,11 +67,11 @@ var TaskManager = {
                 t.parser = parser;
                 if (match[1]) {
                     // TODO: 迁移这个 hack，减少耦合
-                    var c = match[1];
+                    var c = match[1].trim();
                     if (t.taskType === 'runTest' && c.indexOf('http://') === -1) {
                         c = 'http://' + c;
                     }
-                    t.command = match[1];
+                    t.command = c;
                 }
                 break;
             }
@@ -114,7 +114,25 @@ var TaskManager = {
                     || (i<EXECUTING_TASK_MAX && !t.executing)) {
                 this.execute(t);
             }
-        }
+        };
+    },
+
+    /**
+     * 删除队列任务对应的 session
+     * @param sessionId {String}
+     */
+    removeQueue: function(sessionId) {
+        var self = this;
+        queue.forEach(function(t) {
+            for (var k in t.clientStatus[0]) {
+                if (k === sessionId) {
+                    console.log('removeQueue:' + k);
+                    delete t.clientStatus[0][k];
+                    console.log(t.clientStatus[0]);
+                }
+            }
+            self.checkTask(t);
+        });
     },
 
     /**
