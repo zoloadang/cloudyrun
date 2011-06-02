@@ -66,6 +66,11 @@ var TaskManager = {
                 t.taskType = parser.name;
                 t.parser = parser;
                 if (match[1]) {
+                    // TODO: 迁移这个 hack，减少耦合
+                    var c = match[1];
+                    if (t.taskType === 'runTest' && c.indexOf('http://') === -1) {
+                        c = 'http://' + c;
+                    }
                     t.command = match[1];
                 }
                 break;
