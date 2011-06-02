@@ -110,6 +110,13 @@ var TaskManager = {
     checkQueue: function() {
         for (var i=0; i<queue.length; i++) {
             var t = queue[i];
+            for (var k in t.clientStatus[0]) {
+                var s = SessionManager.get('client', k, t.room);
+                if (!s) {
+                    delete t.clientStatus[0][k];
+                    this.checkTask(t);
+                }
+            }
             if (t && t.taskType === 'execScript'
                     || (i<EXECUTING_TASK_MAX && !t.executing)) {
                 this.execute(t);

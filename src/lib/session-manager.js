@@ -81,7 +81,7 @@ var SessionManager = {
         if (!sessions[type]) return;
 
         var ss = sessions[type];
-        var ret = {};
+        var ret;
         if (util.isString(ids)) {
             ids = [ids];
         }
@@ -93,6 +93,7 @@ var SessionManager = {
                     ret = ss[k];
                     break;
                 } else {
+                    if (!ret) ret = {};
                     ret[k] = ss[k];
                 }
             }
