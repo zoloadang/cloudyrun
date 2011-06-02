@@ -32,6 +32,12 @@ app.get('/tasks', function(req, res) {
     });
 });
 
+app.get('/commands', function(req, res) {
+    TaskManager.getCommandsFromDB(function(docs) {
+        res.send(docs);
+    });
+});
+
 app.get('/clearqueue', function(req, res) {
     TaskManager.clearQueue();
     res.send('cleared!');

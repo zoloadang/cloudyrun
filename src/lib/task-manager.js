@@ -354,6 +354,17 @@ var TaskManager = {
             html += '<h2>List</h2><ol><li>'+ret.join('</li><br><li>')+'</li></ol>';
             cb && cb(html);
         });
+    },
+
+    getCommandsFromDB: function(cb) {
+        Task.find(null, [], {sort:{date:-1},limit:300}, function(err, docs) {
+            if (err || !docs) return;
+            var html = '';
+            docs.forEach(function(a) {
+                html += a.command + ',<span style="display:none;">' + a.taskId + '</span><br>';
+            });
+            cb && cb(html);
+        });
     }
 };
 

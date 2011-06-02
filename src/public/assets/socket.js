@@ -63,6 +63,7 @@ socket.on('message', function(data) {
         data = JSON.parse(data);
     } catch(e) {
         alert('[error] json data parsing failed!');
+        alert(data);
         return;
     }
 
