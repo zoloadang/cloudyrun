@@ -20,8 +20,8 @@ var TaskManager = {
 
 $('#command').focus();
 $('#frm').submit(function() {
-    var val = $('#command').val();
-    if ($.trim(val) === '') {
+    var val = $.trim($('#command').val());
+    if (val === '') {
         return false;
     }
     if (!$('#browser-list b')[0]) {

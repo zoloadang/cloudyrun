@@ -38,7 +38,7 @@ var TaskManager = {
         var t = util.extend(new Task(), {
             'taskId':   uuid(),
             // 'taskType': 'execScript',
-            'command':  data.command,
+            'command':  data.command.trim(),
             'room':     session.room,
             'client':   data.client || [],
             'console':  [session.sessionId],
